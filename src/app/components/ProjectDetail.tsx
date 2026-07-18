@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
+import type { Project } from '../data/projects';
 
 export const ProjectDetail = () => {
   const { slug } = useParams();
@@ -62,6 +63,16 @@ export const ProjectDetail = () => {
               <div>
                 <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 block mb-2">Role</span>
                 <p className="text-xl font-light">{project.role}</p>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors mt-4"
+                  >
+                    View on GitHub <ArrowUpRight className="w-3 h-3" />
+                  </a>
+                )}
               </div>
            </div>
 

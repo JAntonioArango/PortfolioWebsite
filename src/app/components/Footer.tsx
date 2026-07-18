@@ -32,13 +32,13 @@ export const Footer = () => {
                    </div>
                    <div>
                      <span className="block text-4xl font-light tracking-tighter text-white group-hover:translate-x-2 transition-transform duration-300">Start a Project</span>
-                     <span className="block text-sm font-mono uppercase tracking-widest text-neutral-500 mt-1 group-hover:text-neutral-400 transition-colors">We are currently available</span>
+                     <span className="block text-sm font-mono uppercase tracking-widest text-neutral-500 mt-1 group-hover:text-neutral-400 transition-colors">I am currently available</span>
                    </div>
                  </button>
 
-                 <a href="mailto:hello@studio.com" className="group flex items-center gap-4 text-lg font-mono text-neutral-500 hover:text-white transition-colors pl-4">
+                 <a href="mailto:antonio@arangomoreno.com" className="group flex items-center gap-4 text-lg font-mono text-neutral-500 hover:text-white transition-colors pl-4">
                    <span className="w-2 h-2 rounded-full bg-green-500" />
-                   hello@studio.com
+                   antonio@arangomoreno.com
                  </a>
               </div>
             </div>
@@ -48,10 +48,13 @@ export const Footer = () => {
                 <div>
                   <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-6">Socials</h4>
                   <ul className="space-y-4">
-                    {['Instagram', 'Twitter', 'LinkedIn', 'Awwwards'].map((social) => (
-                      <li key={social}>
-                        <a href="#" className="flex items-center gap-2 text-lg font-light text-neutral-400 hover:text-white transition-colors group">
-                          {social}
+                    {[
+                      { name: 'LinkedIn', href: 'https://www.linkedin.com/in/juan-antonio-arango/' },
+                      { name: 'GitHub', href: 'https://github.com/JAntonioArango' },
+                    ].map((social) => (
+                      <li key={social.name}>
+                        <a href={social.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg font-light text-neutral-400 hover:text-white transition-colors group">
+                          {social.name}
                           <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
                         </a>
                       </li>
@@ -77,10 +80,7 @@ export const Footer = () => {
 
           <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/5 gap-6">
             <p className="font-mono text-xs uppercase tracking-widest text-neutral-600">
-              © 2024 Studio Pure Vision.
-            </p>
-            <p className="font-mono text-xs uppercase tracking-widest text-neutral-600">
-              Designed by Figma Make
+              © 2025 ANTONIO.DEV
             </p>
           </div>
         </div>
@@ -142,7 +142,7 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                   <Send className="w-8 h-8 text-black" />
                 </motion.div>
                 <h3 className="text-3xl font-medium mb-2">Message Sent</h3>
-                <p className="text-neutral-400 font-light">We'll be in touch shortly.</p>
+                <p className="text-neutral-400 font-light">I'll be in touch shortly.</p>
               </div>
             ) : (
               <div className="mt-12">
@@ -152,7 +152,7 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                   <span className="italic font-serif text-neutral-500">Project</span>
                 </h3>
                 <p className="text-neutral-400 font-light mb-12">
-                  Tell us about your vision. We'll help you build it.
+                  Tell me about your project. Let's build it together.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-12">

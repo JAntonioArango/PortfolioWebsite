@@ -1,27 +1,27 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'motion/react';
-import { Layout, Smartphone, Globe, Box, Zap, Search } from 'lucide-react';
+import { Server, GitBranch, Activity, Layers } from 'lucide-react';
 
 const services = [
   {
-    icon: Layout,
-    title: "UI/UX Design",
-    description: "Crafting intuitive interfaces that guide users effortlessly through digital journeys."
+    icon: Server,
+    title: "Backend Development",
+    description: "Spring Boot microservices and RESTful / reactive APIs built for scale, with clean architecture from day one."
   },
   {
-    icon: Smartphone,
-    title: "Mobile First",
-    description: "Responsive experiences that feel native on every device and screen size."
+    icon: GitBranch,
+    title: "DevOps & CI/CD",
+    description: "Docker containers, automated GitHub pipelines, and quality gates with SonarQube and JaCoCo."
   },
   {
-    icon: Globe,
-    title: "Web Development",
-    description: "Robust, scalable front-end solutions built with modern frameworks."
+    icon: Activity,
+    title: "Monitoring & Observability",
+    description: "Real-time system health with Prometheus and Grafana. Know your service before it fails."
   },
   {
-    icon: Box,
-    title: "3D & Motion",
-    description: "Immersive interactions that add depth and character to your brand."
+    icon: Layers,
+    title: "Full-Stack Integration",
+    description: "End-to-end delivery: React frontends wired to secure, well-tested backend services."
   }
 ];
 
@@ -78,7 +78,7 @@ export const Services = () => {
           >
             <div className="absolute top-0 left-[-1px] h-12 w-[1px] bg-gradient-to-b from-white to-transparent" />
             <p className="text-xl md:text-2xl font-light text-neutral-300 leading-relaxed">
-              We combine aesthetic precision with technical robustness to build products that stand the test of time.
+              Clean architecture, battle-tested tooling, and a production-first mindset — from API design to deployment.
             </p>
           </motion.div>
         </div>

@@ -74,10 +74,10 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-7xl md:text-[11rem] font-medium tracking-tighter leading-[0.85] mb-12 mix-blend-difference text-white"
+          className="text-7xl md:text-[8.5rem] font-medium tracking-tighter leading-[0.85] mb-12 mix-blend-difference text-white"
         >
-          Pure <br />
-          <span className="italic font-serif text-neutral-500">Vision</span>
+          Build <br />
+          <span className="italic font-serif text-neutral-500">Automate</span>
         </motion.h1>
         
         <motion.div 
@@ -87,12 +87,12 @@ export const Hero = () => {
           className="flex flex-col md:flex-row items-center gap-6 md:gap-16 text-lg font-light text-neutral-400 max-w-4xl mx-auto"
         >
           <p className="md:text-right flex-1 leading-relaxed">
-            Redefining digital aesthetics with precision<br />
-            and interactive depth.
+            Java Backend Developer specialized in<br />
+            Spring Boot, microservices, and clean architecture.
           </p>
           <div className="w-px h-16 bg-white/10 hidden md:block" />
           <p className="md:text-left flex-1 leading-relaxed">
-            Based in San Francisco,<br />
+            Based in Medellín, Colombia,<br />
             working globally.
           </p>
         </motion.div>

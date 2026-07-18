@@ -15,7 +15,7 @@ export const Work = () => {
              </Link>
              <h1 className="text-6xl md:text-9xl font-medium tracking-tighter leading-[0.9]">
                Archive <br />
-               <span className="italic font-serif text-neutral-500">2021—24</span>
+               <span className="italic font-serif text-neutral-500">2024—25</span>
              </h1>
            </div>
         </div>
