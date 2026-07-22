@@ -22,8 +22,8 @@ export const Navbar = () => {
   }, [location]);
 
   const navItems = [
-    { name: 'Work', to: '/work' },
     { name: 'About', to: '/#about' },
+    { name: 'Work', to: '/#work' },
     { name: 'Services', to: '/#services' },
     { name: 'Contact', to: '/#contact' }
   ];
@@ -58,7 +58,7 @@ export const Navbar = () => {
             >
               <Link
                 to={item.to}
-                className="text-sm uppercase tracking-widest hover:text-white/70 transition-colors relative group"
+                className="text-base uppercase tracking-widest hover:text-white/70 transition-colors relative group"
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all group-hover:w-full" />

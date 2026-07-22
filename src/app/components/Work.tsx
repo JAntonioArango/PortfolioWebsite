@@ -3,14 +3,16 @@ import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects'; // Import data
+import { AmbientBackground } from './AmbientBackground';
 
 export const Work = () => {
   return (
     <div className="bg-neutral-950 min-h-screen text-white pt-32 px-6">
-      <div className="container mx-auto">
+      <AmbientBackground />
+      <div className="container mx-auto relative z-10">
         <div className="flex justify-between items-end mb-24">
            <div>
-             <Link to="/" className="text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors mb-8 block">
+             <Link to="/" className="text-sm font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors mb-8 block">
                ← Back to Home
              </Link>
              <h1 className="text-6xl md:text-9xl font-medium tracking-tighter leading-[0.9]">
@@ -45,9 +47,9 @@ export const Work = () => {
                 <div className="flex justify-between items-baseline border-t border-white/10 pt-4">
                    <div>
                      <h3 className="text-xl font-medium tracking-tight mb-1">{project.title}</h3>
-                     <p className="text-xs font-mono uppercase tracking-widest text-neutral-500">{project.category}</p>
+                     <p className="text-sm font-mono uppercase tracking-widest text-neutral-500">{project.category}</p>
                    </div>
-                   <span className="text-xs font-mono text-neutral-600">{project.year}</span>
+                   <span className="text-sm font-mono text-neutral-600">{project.year}</span>
                 </div>
               </Link>
             </motion.div>

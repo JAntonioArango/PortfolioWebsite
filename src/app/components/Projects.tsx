@@ -22,8 +22,8 @@ export const Projects = () => {
           <div>
             <div className="flex items-center gap-6 mb-8">
               <div className="flex items-baseline gap-3">
-                <span className="font-serif italic text-lg text-white">01</span>
-                <span className="text-xs font-mono uppercase tracking-[0.3em] text-neutral-400">Selected Work</span>
+                <span className="font-serif italic text-lg text-white">02</span>
+                <span className="text-sm font-mono uppercase tracking-[0.3em] text-neutral-400">Selected Work</span>
               </div>
               <div className="h-px w-32 bg-gradient-to-r from-white/30 to-transparent" />
             </div>
@@ -33,7 +33,7 @@ export const Projects = () => {
             </h2>
           </div>
           <div className="hidden md:block mb-2">
-             <Link to="/work" className="text-xs font-mono uppercase tracking-widest border-b border-white/30 pb-2 hover:text-neutral-300 transition-colors inline-block">
+             <Link to="/work" className="text-sm font-mono uppercase tracking-widest border-b border-white/30 pb-2 hover:text-neutral-300 transition-colors inline-block">
                View All Projects
              </Link>
           </div>
@@ -85,9 +85,9 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
         <div className="flex justify-between items-end border-t border-white/10 pt-6">
           <div>
             <h3 className="text-3xl font-medium tracking-tight mb-2 group-hover:text-neutral-400 transition-colors">{project.title}</h3>
-            <p className="font-mono text-xs uppercase tracking-widest text-neutral-500">{project.category}</p>
+            <p className="font-mono text-sm uppercase tracking-widest text-neutral-500">{project.category}</p>
           </div>
-          <span className="font-mono text-xs text-neutral-600">{project.year}</span>
+          <span className="font-mono text-sm text-neutral-600">{project.year}</span>
         </div>
       </Link>
     </motion.div>

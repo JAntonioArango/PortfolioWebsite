@@ -53,7 +53,7 @@ export const Services = () => {
             <div className="flex items-center gap-6 mb-8">
                <div className="flex items-baseline gap-3">
                   <span className="font-serif italic text-lg text-white">03</span>
-                  <span className="text-xs font-mono uppercase tracking-[0.3em] text-neutral-400">/ Capabilities</span>
+                  <span className="text-sm font-mono uppercase tracking-[0.3em] text-neutral-400">/ Services</span>
                </div>
                <div className="h-px w-32 bg-gradient-to-r from-white/30 to-transparent" />
             </div>

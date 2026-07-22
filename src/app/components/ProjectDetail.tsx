@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import type { Project } from '../data/projects';
+import { AmbientBackground } from './AmbientBackground';
 
 export const ProjectDetail = () => {
   const { slug } = useParams();
@@ -12,7 +13,8 @@ export const ProjectDetail = () => {
   if (!project) {
     return (
       <div className="min-h-screen bg-neutral-950 flex items-center justify-center text-white">
-        <div className="text-center">
+        <AmbientBackground />
+        <div className="text-center relative z-10">
           <h1 className="text-4xl mb-4">Project not found</h1>
           <Link to="/work" className="text-neutral-500 hover:text-white underline">Back to Archive</Link>
         </div>
@@ -22,8 +24,9 @@ export const ProjectDetail = () => {
 
   return (
     <div className="bg-neutral-950 min-h-screen text-white pt-32 px-6">
-      <div className="container mx-auto">
-        <Link to="/work" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors mb-12">
+      <AmbientBackground />
+      <div className="container mx-auto relative z-10">
+        <Link to="/work" className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors mb-12">
           <ArrowLeft className="w-4 h-4" /> Back to Archive
         </Link>
 
@@ -38,7 +41,7 @@ export const ProjectDetail = () => {
              <h1 className="text-6xl md:text-9xl font-medium tracking-tighter leading-[0.9]">
                {project.title}
              </h1>
-             <span className="font-mono text-sm text-neutral-400 mb-2">{project.category} — {project.year}</span>
+             <span className="font-mono text-base text-neutral-400 mb-2">{project.category} — {project.year}</span>
           </div>
 
           <div className="aspect-[16/9] w-full bg-neutral-900 overflow-hidden rounded-sm">
@@ -57,18 +60,18 @@ export const ProjectDetail = () => {
         <div className="grid md:grid-cols-[1fr_2fr] gap-24 mb-32">
            <div className="space-y-12">
               <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 block mb-2">Client</span>
+                <span className="text-sm font-mono uppercase tracking-widest text-neutral-600 block mb-2">Client</span>
                 <p className="text-xl font-light">{project.client}</p>
               </div>
               <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 block mb-2">Role</span>
+                <span className="text-sm font-mono uppercase tracking-widest text-neutral-600 block mb-2">Role</span>
                 <p className="text-xl font-light">{project.role}</p>
                 {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors mt-4"
+                    className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors mt-4"
                   >
                     View on GitHub <ArrowUpRight className="w-3 h-3" />
                   </a>
@@ -100,7 +103,7 @@ export const ProjectDetail = () => {
         {/* Next Project (Simple Link) */}
         <div className="border-t border-white/10 py-24 text-center">
            <Link to="/work" className="group inline-flex flex-col items-center gap-4">
-              <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">Next Project</span>
+              <span className="text-sm font-mono uppercase tracking-widest text-neutral-500">Next Project</span>
               <span className="text-6xl md:text-8xl font-medium tracking-tighter group-hover:text-neutral-400 transition-colors">
                 View Archive
               </span>

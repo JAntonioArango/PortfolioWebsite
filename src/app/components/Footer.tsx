@@ -7,7 +7,7 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="relative bg-neutral-950 py-32 px-6 overflow-hidden border-t border-white/5">
+      <footer id="contact" className="relative bg-neutral-950 py-32 px-6 overflow-hidden border-t border-white/5">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-[1.5fr_1fr] gap-20 mb-32">
             
@@ -32,7 +32,7 @@ export const Footer = () => {
                    </div>
                    <div>
                      <span className="block text-4xl font-light tracking-tighter text-white group-hover:translate-x-2 transition-transform duration-300">Start a Project</span>
-                     <span className="block text-sm font-mono uppercase tracking-widest text-neutral-500 mt-1 group-hover:text-neutral-400 transition-colors">I am currently available</span>
+                     <span className="block text-base font-mono uppercase tracking-widest text-neutral-500 mt-1 group-hover:text-neutral-400 transition-colors">I am currently available</span>
                    </div>
                  </button>
 
@@ -46,7 +46,7 @@ export const Footer = () => {
             <div className="flex flex-col justify-end gap-12">
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-6">Socials</h4>
+                  <h4 className="font-mono text-sm uppercase tracking-widest text-neutral-500 mb-6">Socials</h4>
                   <ul className="space-y-4">
                     {[
                       { name: 'LinkedIn', href: 'https://www.linkedin.com/in/juan-antonio-arango/' },
@@ -62,7 +62,7 @@ export const Footer = () => {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-6">Sitemap</h4>
+                  <h4 className="font-mono text-sm uppercase tracking-widest text-neutral-500 mb-6">Sitemap</h4>
                   <ul className="space-y-4">
                     {['Home', 'Work', 'About', 'Contact'].map((link) => (
                       <li key={link}>
@@ -79,7 +79,7 @@ export const Footer = () => {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/5 gap-6">
-            <p className="font-mono text-xs uppercase tracking-widest text-neutral-600">
+            <p className="font-mono text-sm uppercase tracking-widest text-neutral-600">
               © 2025 ANTONIO.DEV
             </p>
           </div>
@@ -146,7 +146,7 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
               </div>
             ) : (
               <div className="mt-12">
-                <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-6 block">04 / Contact</span>
+                <span className="text-sm font-mono uppercase tracking-widest text-neutral-500 mb-6 block">04 / Contact</span>
                 <h3 className="text-4xl md:text-5xl font-medium tracking-tighter mb-2">
                   Start a <br />
                   <span className="italic font-serif text-neutral-500">Project</span>
@@ -186,10 +186,10 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                   </div>
 
                   <div className="space-y-4">
-                     <label className="text-xs font-mono uppercase tracking-widest text-neutral-500">Budget Range</label>
+                     <label className="text-sm font-mono uppercase tracking-widest text-neutral-500">Budget Range</label>
                      <div className="flex flex-wrap gap-3">
                         {['< 10k', '10k - 50k', '50k - 100k', '> 100k'].map(range => (
-                          <button type="button" key={range} className="px-4 py-2 rounded-full border border-white/10 text-sm font-light hover:bg-white hover:text-black transition-all">
+                          <button type="button" key={range} className="px-4 py-2 rounded-full border border-white/10 text-base font-light hover:bg-white hover:text-black transition-all">
                             {range}
                           </button>
                         ))}

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
 import hackathonImg from '../../images/Hackathon_Winner.jpeg';
 import saberProImg from '../../images/Saber_Pro_Top1.jpg.jpeg';
+import { IconRibbon } from './IconRibbon';
 
 export const About = () => {
   const containerRef = useRef(null);
@@ -24,8 +25,8 @@ export const About = () => {
         {/* Section Header - Consistent Style */}
         <div className="flex items-center gap-6 mb-24">
            <div className="flex items-baseline gap-3">
-              <span className="font-serif italic text-lg text-white">02</span>
-              <span className="text-xs font-mono uppercase tracking-[0.3em] text-neutral-400">About Me</span>
+              <span className="font-serif italic text-lg text-white">01</span>
+              <span className="text-sm font-mono uppercase tracking-[0.3em] text-neutral-400">About Me</span>
            </div>
            <div className="h-px w-32 bg-gradient-to-r from-white/30 to-transparent" />
         </div>
@@ -81,22 +82,22 @@ export const About = () => {
             <div className="mt-16 pt-16 border-t border-white/5">
                <div className="grid grid-cols-3 gap-8 mb-16">
                  <div className="space-y-2 border-r border-white/5">
-                   <h4 className="text-4xl font-light text-white">5<span className="text-neutral-600 text-lg">+</span></h4>
-                   <p className="text-xs uppercase tracking-widest text-neutral-500">Years Experience</p>
+                   <h4 className="text-4xl font-light text-white">2 +</h4>
+                   <p className="text-sm uppercase tracking-widest text-neutral-500">Years Experience</p>
                  </div>
                  <div className="space-y-2 border-r border-white/5">
-                   <h4 className="text-4xl font-light text-white">6</h4>
-                   <p className="text-xs uppercase tracking-widest text-neutral-500">Projects Built</p>
+                   <h4 className="text-4xl font-light text-white">6 +</h4>
+                   <p className="text-sm uppercase tracking-widest text-neutral-500">Projects Built</p>
                  </div>
                  <div className="space-y-2">
                    <h4 className="text-4xl font-light text-white">2</h4>
-                   <p className="text-xs uppercase tracking-widest text-neutral-500">Awards</p>
+                   <p className="text-sm uppercase tracking-widest text-neutral-500">Awards</p>
                  </div>
                </div>
 
                {/* Awards & Recognition */}
                <div>
-                 <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 block mb-6">Awards & Recognition</span>
+                 <span className="text-sm font-mono uppercase tracking-widest text-neutral-600 block mb-6">Awards & Recognition</span>
                  <div className="flex gap-6">
                    {[
                      { img: hackathonImg, title: 'Hackathon Winner', sub: 'Talento Tech MINTIC — 2024' },
@@ -112,8 +113,8 @@ export const About = () => {
                        <div className="aspect-[3/4] overflow-hidden rounded-sm bg-neutral-900 grayscale group-hover:grayscale-0 transition-all duration-700 mb-3">
                          <img src={award.img} alt={award.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                        </div>
-                       <p className="text-xs font-medium text-white leading-tight">{award.title}</p>
-                       <p className="text-[10px] font-mono text-neutral-600 mt-1 leading-tight">{award.sub}</p>
+                       <p className="text-sm font-medium text-white leading-tight">{award.title}</p>
+                       <p className="text-xs font-mono text-neutral-600 mt-1 leading-tight">{award.sub}</p>
                      </motion.div>
                    ))}
                  </div>
@@ -139,24 +140,14 @@ export const About = () => {
                  />
                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                </motion.div>
-               
-               {/* Decorative Ring */}
-               <div className="absolute -bottom-12 -left-12 w-48 h-48 border border-white/10 rounded-full flex items-center justify-center backdrop-blur-sm hidden md:flex" style={{ animation: 'spin 15s linear infinite' }}>
-                 <style dangerouslySetInnerHTML={{__html: `
-                   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-                 `}} />
-                 <svg className="w-full h-full p-2" viewBox="0 0 100 100">
-                   <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
-                   <text className="fill-neutral-500 text-[10px] uppercase tracking-widest font-mono">
-                     <textPath href="#circlePath">
-                       • Java • Spring Boot • Docker • Microservices
-                     </textPath>
-                   </text>
-                 </svg>
-               </div>
             </div>
           </motion.div>
 
+        </div>
+
+        {/* Tech Stack Ribbon */}
+        <div className="mt-24 pt-16 border-t border-white/5">
+          <IconRibbon />
         </div>
       </div>
     </section>
