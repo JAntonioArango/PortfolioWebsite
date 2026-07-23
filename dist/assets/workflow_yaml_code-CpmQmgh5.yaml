@@ -1,0 +1,465 @@
+assistants:
+  - id: report-file-initializer
+    system_prompt: You initialize the workflow's review report artifact in the workspace. Create a minimal, valid JSON report skeleton at the required path so downstream steps can write findings and test outcomes. Always return the report reference wrapper object exactly as specified.
+    limit_tool_output_tokens: 10000
+    tools:
+      - name: write_workspace_file
+    datasource_ids: []
+    exclude_extra_context_tools: false
+    mcp_servers: []
+    skill_ids: []
+  - id: test-runner
+    system_prompt: You are a CI test runner agent. Your job is to select the most appropriate test command for the repository, run the full automated test suite in a reproducible way, and capture the exit code and logs. Report pass/fail strictly from the process exit code and summarize results succinctly in the required JSON wrapper.
+    limit_tool_output_tokens: 10000
+    tools:
+      - name: code_executor
+    datasource_ids: []
+    exclude_extra_context_tools: false
+    mcp_servers: []
+    skill_ids: []
+  - id: test-failure-analyzer
+    system_prompt: You are a CI test failure triage agent. Given a test command, exit code, summary, and logs, you infer the most likely root cause, point to implicated files/modules, and propose concrete remediation steps. You also draft a concise report note suitable for appending to an engineering review report.
+    limit_tool_output_tokens: 10000
+    tools:
+      - name: write_workspace_file
+    datasource_ids: []
+    exclude_extra_context_tools: false
+    mcp_servers: []
+    skill_ids: []
+  - id: test-pass-recorder
+    system_prompt: You are a CI verification recorder. Your job is to confirm the test run indicates an overall PASS and to document this outcome in the provided review report reference. Keep notes succinct, auditable, and consistent with the test execution metadata, and always return the required JSON wrapper.
+    limit_tool_output_tokens: 10000
+    tools:
+      - name: write_workspace_file
+    datasource_ids: []
+    exclude_extra_context_tools: false
+    mcp_servers: []
+    skill_ids: []
+  - id: review-agent-orchestrator
+    system_prompt: You are an expert software review orchestrator. Synthesize security, quality, documentation, architecture, and maintainability review perspectives into one consolidated set of findings. Be specific, risk-aware, and remediation-oriented; if code context is missing, state limitations and propose the minimal next steps to obtain evidence.
+    limit_tool_output_tokens: 10000
+    tools: []
+    datasource_ids: []
+    exclude_extra_context_tools: false
+    mcp_servers: []
+    skill_ids: []
+  - id: report-registrar
+    system_prompt: You are a workflow agent responsible for persisting code review findings into the project’s canonical review report. Your job is to transform structured reviewer outputs into a well-formatted, non-duplicative Markdown report update and provide a concise executive summary. If the referenced report cannot be updated, clearly mark the result as failed and explain what prevented the update.
+    limit_tool_output_tokens: 10000
+    tools:
+      - name: write_workspace_file
+      - name: edit_workspace_file
+    datasource_ids: []
+    exclude_extra_context_tools: false
+    mcp_servers: []
+    skill_ids: []
+  - id: report-notifier
+    system_prompt: You are a workflow notification agent. Your job is to prepare and send (or simulate sending) a clear, actionable notification that a review report is ready, choosing an appropriate channel and recipients based on the provided report reference. Always return the required JSON wrapper and include channel, recipients, message_id, and status fields.
+    limit_tool_output_tokens: 10000
+    tools: []
+    datasource_ids: []
+    exclude_extra_context_tools: false
+    mcp_servers: []
+    skill_ids: []
+
+tools: []
+
+states:
+  - id: create-review-report-file
+    assistant_id: report-file-initializer
+    task: |-
+      Create an empty review report file in the workspace that later steps can append to. Use the workspace file system to write a new JSON report skeleton containing metadata (created timestamp), an empty findings list, and placeholders for test results.
+
+      Requirements:
+      - Choose a deterministic path: "reports/review_report.json".
+      - Ensure parent folder exists (create it if needed).
+      - Write valid JSON with keys: "meta", "summary", "findings", "test_results".
+      - "findings" must start as an empty array.
+
+      Return JSON exactly in this shape:
+      {"review_report_ref": {"review_report_ref": "review_report.json", "review_report_path": "reports/review_report.json", "format": "json", "location": "workspace"}}
+    finish_iteration: false
+    next:
+      state_id: run-test-suite
+      keep_history: true
+      override_task: false
+      output_key: review_report_ref
+      store_in_context: true
+      include_in_llm_history: false
+      clear_prior_messages: false
+      clear_context_store: false
+      include_in_iterator_context:
+        - '*'
+      append_to_context: false
+    output_schema: '{"type":"object","properties":{"review_report_ref":{"type":"object","properties":{"review_report_ref":{"type":"string"},"review_report_path":{"type":"string"},"format":{"type":"string"},"location":{"type":"string"}},"required":["review_report_ref","review_report_path","format","location"]}},"required":["review_report_ref"]}'
+    retry_policy: {}
+    interrupt_before: false
+    resolve_dynamic_values_in_prompt: false
+    result_as_human_message: false
+  - id: run-test-suite
+    assistant_id: test-runner
+    task: |-
+      Run the project's automated test suite using the repository's standard command. Use the review report reference {{review_report_ref}} to locate any repo/workspace context if needed.
+
+      Instructions:
+      - Determine the appropriate test command (e.g., `npm test`, `pytest`, `mvn test`, `gradle test`, etc.) based on the project.
+      - Execute the test command and capture:
+        - the exact command executed
+        - full stdout/stderr logs (truncate only if extremely large; keep failure context)
+        - exit code
+      - Set `test_passed` to True only if the exit code is 0 and the suite completed successfully; otherwise False.
+      - Provide a concise `test_result` summary (e.g., counts of passed/failed/skipped if available; otherwise a short status).
+
+      Return JSON exactly in this shape:
+      {
+        "test_execution": {
+          "test_execution": "string describing what was run (e.g., 'unit tests', 'full suite')",
+          "test_passed": true|false,
+          "test_result": "short summary",
+          "test_logs": "captured logs",
+          "test_command": "exact command executed",
+          "exit_code": 0
+        }
+      }
+    finish_iteration: false
+    next:
+      keep_history: true
+      override_task: false
+      condition:
+        expression: test_execution.test_passed == False
+        then: analyze-test-failure
+        otherwise: record-test-passed
+      output_key: test_execution
+      store_in_context: true
+      include_in_llm_history: false
+      clear_prior_messages: false
+      clear_context_store: false
+      include_in_iterator_context:
+        - '*'
+      append_to_context: false
+      meta_next_state_id: conditional_1
+    output_schema: '{"type":"object","properties":{"test_execution":{"type":"object","properties":{"test_execution":{"type":"string"},"test_passed":{"type":"boolean"},"test_result":{"type":"string"},"test_logs":{"type":"string"},"test_command":{"type":"string"},"exit_code":{"type":"integer"}},"required":["test_execution","test_passed","test_result","test_logs","test_command","exit_code"]}},"required":["test_execution"]}'
+    retry_policy: {}
+    interrupt_before: false
+    resolve_dynamic_values_in_prompt: true
+    result_as_human_message: false
+  - id: analyze-test-failure
+    assistant_id: test-failure-analyzer
+    task: |-
+      Analyze the failed test execution and update the existing review report with a concise failure analysis.
+
+      Inputs:
+      - Review report reference (file/path/identifier): {{review_report_ref}}
+      - Test execution result/logs/command/exit code: {{test_execution}}
+
+      Do:
+      1) Determine the most likely root cause from the test_result summary and test_logs. If logs are large, focus on the first error, stack trace, assertion diffs, and the failing test names.
+      2) Identify suspected files/modules/components implicated by stack traces, error messages, or referenced paths. If unknown, list probable areas (e.g., config, dependency, DB, API client, test fixtures).
+      3) Provide recommended fixes as actionable steps (code changes, config updates, dependency pinning, test stabilization, environment fixes). Include both quick mitigations and longer-term fixes when appropriate.
+      4) Write a short note to be appended into the review report referenced by {{review_report_ref}} under a section like "Test Failure Analysis". The note should include failing test(s), error summary, root cause hypothesis, and next steps.
+
+      Return JSON exactly in this shape:
+      {
+        "test_failure_analysis_result": {
+          "root_cause": "...",
+          "suspected_files": ["..."],
+          "recommended_fixes": ["..."],
+          "notes_written_to_report": "..."
+        }
+      }
+
+      Constraints:
+      - Be explicit about uncertainty; use phrases like "likely" and "suspected" if not definitive.
+      - Ensure all output fields are present; use empty arrays if none.
+      - Do not include any top-level keys other than test_failure_analysis_result.
+    finish_iteration: false
+    next:
+      state_id: run-review-agents
+      keep_history: true
+      override_task: false
+      output_key: test_failure_analysis_result
+      store_in_context: true
+      include_in_llm_history: false
+      clear_prior_messages: false
+      clear_context_store: false
+      include_in_iterator_context:
+        - '*'
+      append_to_context: false
+    output_schema: '{"type":"object","properties":{"test_failure_analysis_result":{"type":"object","properties":{"test_failure_analysis_result":{"type":"string"},"root_cause":{"type":"string"},"suspected_files":{"type":"array","items":{"type":"string"}},"recommended_fixes":{"type":"array","items":{"type":"string"}},"notes_written_to_report":{"type":"string"}},"required":["root_cause","suspected_files","recommended_fixes","notes_written_to_report"]}},"required":["test_failure_analysis_result"]}'
+    retry_policy: {}
+    interrupt_before: false
+    resolve_dynamic_values_in_prompt: true
+    result_as_human_message: false
+  - id: record-test-passed
+    assistant_id: test-pass-recorder
+    task: |-
+      Using the test execution results in {{test_execution}} and the report reference in {{review_report_ref}}, record that the test suite has PASSED.
+
+      Actions:
+      1) Validate from {{test_execution}} that the overall test status/outcome is passed (no failing tests).
+      2) Write a short note into the review report identified by {{review_report_ref}} stating the test run passed, including any key metadata available (e.g., suite name, run id, duration, counts).
+      3) Return JSON exactly in the required format.
+
+      Return JSON:
+      {
+        "test_pass_record": {
+          "test_pass_record": "<1-3 sentence pass record suitable for auditing>",
+          "notes_written_to_report": "<exact note content that was written/appended to the report>"
+        }
+      }
+    finish_iteration: false
+    next:
+      state_id: run-review-agents
+      keep_history: true
+      override_task: false
+      output_key: test_pass_record
+      store_in_context: true
+      include_in_llm_history: false
+      clear_prior_messages: false
+      clear_context_store: false
+      include_in_iterator_context:
+        - '*'
+      append_to_context: false
+    output_schema: '{"type":"object","properties":{"test_pass_record":{"type":"object","properties":{"test_pass_record":{"type":"string"},"notes_written_to_report":{"type":"string"}},"required":["test_pass_record","notes_written_to_report"]}},"required":["test_pass_record"]}'
+    retry_policy: {}
+    interrupt_before: false
+    resolve_dynamic_values_in_prompt: true
+    result_as_human_message: false
+  - id: run-review-agents
+    assistant_id: review-agent-orchestrator
+    task: |-
+      Run the full set of code review agents across the repository and consolidate their findings into a single structured object. Focus on: (1) security & compliance risks, (2) best practices, (3) documentation gaps + deprecations + known bugs, (4) design/architecture concerns, and (5) readability/maintainability issues.
+
+      Guidelines:
+      - Provide actionable findings with brief rationale and recommended remediation.
+      - When possible, include concrete pointers (file paths, components, patterns) but do not fabricate—only state what you can confidently infer.
+      - If you lack repository context in this step, produce a conservative, clearly caveated review and recommend follow-up steps to gather the needed code context.
+
+      Return JSON exactly in this shape:
+      {
+        "review_agent_findings": {
+          "review_agent_findings": <string overall summary of key findings and next steps>,
+          "security_compliance": <string>,
+          "best_practices": <string>,
+          "docs_deprecations_known_bugs": <string>,
+          "design_architecture": <string>,
+          "readability_maintainability": <string>
+        }
+      }
+    finish_iteration: false
+    next:
+      state_id: register-findings-in-report
+      keep_history: true
+      override_task: false
+      output_key: review_agent_findings
+      store_in_context: true
+      include_in_llm_history: false
+      clear_prior_messages: false
+      clear_context_store: false
+      include_in_iterator_context:
+        - '*'
+      append_to_context: false
+    output_schema: '{"type":"object","properties":{"review_agent_findings":{"type":"object","properties":{"review_agent_findings":{"type":"string"},"security_compliance":{"type":"string"},"best_practices":{"type":"string"},"docs_deprecations_known_bugs":{"type":"string"},"design_architecture":{"type":"string"},"readability_maintainability":{"type":"string"}},"required":["review_agent_findings","security_compliance","best_practices","docs_deprecations_known_bugs","design_architecture","readability_maintainability"]}},"required":["review_agent_findings"]}'
+    retry_policy: {}
+    interrupt_before: false
+    resolve_dynamic_values_in_prompt: false
+    result_as_human_message: false
+  - id: register-findings-in-report
+    assistant_id: report-registrar
+    task: |-
+      Update the existing review report referenced by {{review_report_ref}} by registering/adding the review findings from {{review_agent_findings}}.
+
+      Requirements:
+      - Append a new section titled "## Review Findings" (or update the existing section if present) and include subsections for: Security & Compliance, Best Practices, Docs/Deprecations/Known Bugs, Design/Architecture, Readability/Maintainability, plus an overall consolidated findings block.
+      - Ensure the content is clear, actionable, and formatted in Markdown.
+      - Avoid duplicating content if the section already exists; prefer replacing that section.
+      - Produce a brief executive summary (3–6 bullets) capturing the highest-impact findings.
+
+      Return JSON exactly in this shape:
+      {
+        "report_update_result": {
+          "report_update_result": "success" | "no_change" | "failed",
+          "findings_written_to_report": "<markdown excerpt or description of what was written>",
+          "summary": "<short markdown summary>"
+        }
+      }
+    finish_iteration: false
+    next:
+      state_id: send-report-notification
+      keep_history: true
+      override_task: false
+      output_key: report_update_result
+      store_in_context: true
+      include_in_llm_history: false
+      clear_prior_messages: false
+      clear_context_store: false
+      include_in_iterator_context:
+        - '*'
+      append_to_context: false
+    output_schema: '{"type":"object","properties":{"report_update_result":{"type":"object","properties":{"report_update_result":{"type":"string","enum":["success","no_change","failed"]},"findings_written_to_report":{"type":"string"},"summary":{"type":"string"}},"required":["report_update_result","findings_written_to_report","summary"]}},"required":["report_update_result"]}'
+    retry_policy: {}
+    interrupt_before: false
+    resolve_dynamic_values_in_prompt: true
+    result_as_human_message: false
+  - id: send-report-notification
+    assistant_id: report-notifier
+    task: |
+      Send a notification to stakeholders that the review report is ready.
+
+      Input:
+      - review_report_ref: {{review_report_ref}}
+
+      Instructions:
+      1) Determine the most appropriate channel to use (prefer Email if recipient addresses are available; otherwise choose a reasonable default like "email").
+      2) Determine recipients from the available context in review_report_ref (e.g., author, reviewers, team distribution list). If not present, set recipients to an empty list.
+      3) Compose a concise message that includes the report reference/link/path from review_report_ref and a short summary of what it contains.
+      4) Simulate sending the notification (do not call external tools unless required by the environment). Generate a message_id if sent.
+
+      Return JSON exactly in this format:
+      {
+        "notification_result": {
+          "notification_result": "success" | "failed",
+          "channel": "<string>",
+          "recipients": ["<string>", "..."],
+          "message_id": "<string>",
+          "status": "<string>"
+        }
+      }
+    finish_iteration: false
+    next:
+      state_id: end
+      keep_history: true
+      override_task: false
+      output_key: notification_result
+      store_in_context: true
+      include_in_llm_history: false
+      clear_prior_messages: false
+      clear_context_store: false
+      include_in_iterator_context:
+        - '*'
+      append_to_context: false
+    output_schema: '{"type":"object","properties":{"notification_result":{"type":"object","properties":{"notification_result":{"type":"string"},"channel":{"type":"string"},"recipients":{"type":"array","items":{"type":"string"}},"message_id":{"type":"string"},"status":{"type":"string"}},"required":["notification_result","channel","recipients","message_id","status"]}},"required":["notification_result"]}'
+    retry_policy: {}
+    interrupt_before: false
+    resolve_dynamic_values_in_prompt: true
+    result_as_human_message: false
+
+meta_states:
+  - type: assistant
+    is_connected: true
+    position:
+      x: 356
+      y: 102
+    measured:
+      width: 256
+      height: 66
+    id: create-review-report-file
+    selected: false
+  - type: assistant
+    is_connected: true
+    position:
+      x: 712
+      y: 102
+    measured:
+      width: 256
+      height: 66
+    id: run-test-suite
+    selected: false
+  - id: conditional_1
+    type: conditional
+    is_connected: true
+    data:
+      next:
+        keep_history: true
+        override_task: false
+        condition:
+          expression: test_execution.test_passed == False
+          then: analyze-test-failure
+          otherwise: record-test-passed
+        output_key: test_execution
+        store_in_context: true
+        include_in_llm_history: false
+        clear_prior_messages: false
+        clear_context_store: false
+        include_in_iterator_context:
+          - '*'
+        append_to_context: false
+    position:
+      x: 1068
+      y: 20
+    measured:
+      width: 256
+      height: 230
+    selected: false
+  - type: assistant
+    is_connected: true
+    position:
+      x: 1424
+      y: 29
+    measured:
+      width: 256
+      height: 66
+    id: analyze-test-failure
+    selected: false
+  - type: assistant
+    is_connected: true
+    position:
+      x: 1424
+      y: 175
+    measured:
+      width: 256
+      height: 66
+    id: record-test-passed
+    selected: false
+  - type: assistant
+    is_connected: true
+    position:
+      x: 1780
+      y: 102
+    measured:
+      width: 256
+      height: 66
+    id: run-review-agents
+    selected: false
+  - type: assistant
+    is_connected: true
+    position:
+      x: 2136
+      y: 102
+    measured:
+      width: 256
+      height: 66
+    id: register-findings-in-report
+    selected: false
+  - type: assistant
+    is_connected: true
+    position:
+      x: 2492
+      y: 102
+    measured:
+      width: 256
+      height: 66
+    id: send-report-notification
+    selected: false
+  - id: start
+    type: start
+    is_connected: false
+    position:
+      x: 0
+      y: 102
+    measured:
+      width: 256
+      height: 66
+    data: {}
+    selected: false
+  - id: end
+    type: end
+    is_connected: true
+    position:
+      x: 2848
+      y: 102
+    measured:
+      width: 256
+      height: 66
+    data: {}
+    selected: false

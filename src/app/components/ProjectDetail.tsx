@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import type { Project } from '../data/projects';
 import { AmbientBackground } from './AmbientBackground';
+import { YamlViewerModal } from './YamlViewerModal';
+import workflowYamlRaw from '../../files/workflow_yaml_code.yaml?raw';
 
 export const ProjectDetail = () => {
   const { slug } = useParams();
@@ -66,16 +68,41 @@ export const ProjectDetail = () => {
               <div>
                 <span className="text-sm font-mono uppercase tracking-widest text-neutral-600 block mb-2">Role</span>
                 <p className="text-xl font-light">{project.role}</p>
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors mt-4"
-                  >
-                    View on GitHub <ArrowUpRight className="w-3 h-3" />
-                  </a>
-                )}
+                <div className="flex flex-col items-start gap-3 mt-4">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+                    >
+                      View on GitHub <ArrowUpRight className="w-3 h-3" />
+                    </a>
+                  )}
+                  {project.website && (
+                    <a
+                      href={project.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+                    >
+                      Visit Site <ArrowUpRight className="w-3 h-3" />
+                    </a>
+                  )}
+                  {project.diagramImage && (
+                    <a
+                      href={project.diagramImage}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+                    >
+                      View Workflow Diagram <ArrowUpRight className="w-3 h-3" />
+                    </a>
+                  )}
+                  {project.yamlFile && (
+                    <YamlViewerModal yamlContent={workflowYamlRaw} />
+                  )}
+                </div>
               </div>
            </div>
 
@@ -85,9 +112,13 @@ export const ProjectDetail = () => {
               </p>
               
               <div className="mt-16 pt-16 border-t border-white/10">
-                 <p className="text-lg text-neutral-500 leading-relaxed mb-8">
-                   Additional project context would go here. We focused on delivering a solution that not only looked beautiful but performed exceptionally well. The design system was built to be scalable and modular.
-                 </p>
+                 {(project.details ?? "Additional project context would go here. We focused on delivering a solution that not only looked beautiful but performed exceptionally well. The design system was built to be scalable and modular.")
+                   .split("\n\n")
+                   .map((paragraph, index) => (
+                     <p key={index} className="text-lg text-neutral-500 leading-relaxed mb-8">
+                       {paragraph}
+                     </p>
+                   ))}
                  <div className="grid grid-cols-2 gap-4">
                     <div className="bg-neutral-900 aspect-square rounded-sm overflow-hidden">
                        <img src={project.image} className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-500" alt="Detail 1" />

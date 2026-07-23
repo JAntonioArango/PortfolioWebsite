@@ -9,6 +9,7 @@ import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
 import { Work } from './components/Work';
 import { ProjectDetail } from './components/ProjectDetail';
+import { AwardDetail } from './components/AwardDetail';
 
 // Preloader Component
 const Preloader = () => (
@@ -99,6 +100,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<ProjectDetail />} />
+            <Route path="/awards/:index" element={<AwardDetail />} />
           </Routes>
         </div>
       )}

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
-import hackathonImg from '../../images/Hackathon_Winner.jpeg';
-import saberProImg from '../../images/Saber_Pro_Top1.jpg.jpeg';
+import { Link } from 'react-router-dom';
+import { awards } from '../data/awards';
 import { IconRibbon } from './IconRibbon';
 
 export const About = () => {
@@ -90,32 +90,30 @@ export const About = () => {
                    <p className="text-sm uppercase tracking-widest text-neutral-500">Projects Built</p>
                  </div>
                  <div className="space-y-2">
-                   <h4 className="text-4xl font-light text-white">2</h4>
+                   <h4 className="text-4xl font-light text-white">8</h4>
                    <p className="text-sm uppercase tracking-widest text-neutral-500">Awards</p>
                  </div>
                </div>
 
-               {/* Awards & Recognition */}
+               {/* Awards and Certifications */}
                <div>
-                 <span className="text-sm font-mono uppercase tracking-widest text-neutral-600 block mb-6">Awards & Recognition</span>
-                 <div className="flex gap-6">
-                   {[
-                     { img: hackathonImg, title: 'Hackathon Winner', sub: 'Talento Tech MINTIC — 2024' },
-                     { img: saberProImg, title: 'Top 1% Country Level', sub: 'Saber Pro Exam' },
-                   ].map((award, i) => (
-                     <motion.div
-                       key={award.title}
-                       initial={{ opacity: 0, y: 20 }}
-                       whileInView={{ opacity: 1, y: 0 }}
-                       transition={{ delay: 0.5 + i * 0.15 }}
-                       className="group w-28 flex-shrink-0"
-                     >
-                       <div className="aspect-[3/4] overflow-hidden rounded-sm bg-neutral-900 grayscale group-hover:grayscale-0 transition-all duration-700 mb-3">
-                         <img src={award.img} alt={award.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                       </div>
-                       <p className="text-sm font-medium text-white leading-tight">{award.title}</p>
-                       <p className="text-xs font-mono text-neutral-600 mt-1 leading-tight">{award.sub}</p>
-                     </motion.div>
+                 <span className="text-sm font-mono uppercase tracking-widest text-neutral-600 block mb-6">Awards and Certifications</span>
+                 <div className="flex flex-wrap gap-6">
+                   {awards.map((award, i) => (
+                     <Link to={`/awards/${i}`} key={award.title}>
+                       <motion.div
+                         initial={{ opacity: 0, y: 20 }}
+                         whileInView={{ opacity: 1, y: 0 }}
+                         transition={{ delay: 0.5 + i * 0.15 }}
+                         className="group w-28 flex-shrink-0"
+                       >
+                         <div className="aspect-[3/4] overflow-hidden rounded-sm bg-neutral-900 grayscale group-hover:grayscale-0 transition-all duration-700 mb-3">
+                           <img src={award.image} alt={award.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                         </div>
+                         <p className="text-sm font-medium text-white leading-tight">{award.title}</p>
+                         <p className="text-xs font-mono text-neutral-600 mt-1 leading-tight">{award.sub}</p>
+                       </motion.div>
+                     </Link>
                    ))}
                  </div>
                </div>
