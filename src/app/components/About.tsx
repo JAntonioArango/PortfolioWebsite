@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useInView } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { awards } from '../data/awards';
 import { IconRibbon } from './IconRibbon';
+import aboutMeImage from '../../images/AboutMe.png';
 
 export const About = () => {
   const containerRef = useRef(null);
@@ -131,10 +132,10 @@ export const About = () => {
                  transition={{ duration: 0.5 }}
                  className="aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 ease-in-out bg-neutral-900"
                >
-                 <img 
-                   src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200" 
-                   alt="Workspace" 
-                   className="w-full h-full object-cover opacity-80" 
+                 <img
+                   src={aboutMeImage}
+                   alt="About me"
+                   className="w-full h-full object-cover opacity-80"
                  />
                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                </motion.div>

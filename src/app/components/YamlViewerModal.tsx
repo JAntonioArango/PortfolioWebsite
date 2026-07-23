@@ -13,7 +13,6 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from './ui/accordion';
-import { ScrollArea } from './ui/scroll-area';
 import { Button } from './ui/button';
 
 interface YamlSection {
@@ -166,7 +165,7 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
           {triggerLabel} <FileCodeIcon className="w-3 h-3" />
         </button>
       </DialogTrigger>
-      <DialogContent className="bg-neutral-950 border border-white/10 text-white max-w-4xl w-[calc(100%-2rem)] max-h-[85vh] flex flex-col p-0 gap-0 overflow-hidden rounded-lg">
+      <DialogContent className="bg-neutral-950 border border-white/10 text-white max-w-[95vw] sm:max-w-[45vw] w-[calc(100%-2rem)] max-h-[92vh] flex flex-col p-0 gap-0 overflow-hidden rounded-lg">
         <DialogHeader className="flex-row items-center justify-between gap-4 px-6 py-4 border-b border-white/10 space-y-0">
           <DialogTitle className="text-sm font-mono uppercase tracking-widest text-neutral-300 flex items-center gap-2">
             <FileCodeIcon className="w-4 h-4 text-neutral-500" />
@@ -187,10 +186,10 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
           </Button>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar">
           <Accordion
             type="multiple"
-            defaultValue={sections.length > 0 ? [sections[0].title] : []}
+            defaultValue={sections.map((section) => section.title)}
             className="px-2"
           >
             {sections.map((section) => (
@@ -208,7 +207,7 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="px-0 pb-4">
-                  <pre className="font-mono text-[13px] leading-relaxed overflow-x-auto px-4">
+                  <pre className="font-mono text-sm leading-relaxed overflow-x-auto px-4">
                     <code>
                       {section.lines.map((line, idx) => (
                         <div key={idx} className="flex hover:bg-white/[0.03]">
@@ -226,7 +225,7 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
               </AccordionItem>
             ))}
           </Accordion>
-        </ScrollArea>
+        </div>
       </DialogContent>
     </Dialog>
   );

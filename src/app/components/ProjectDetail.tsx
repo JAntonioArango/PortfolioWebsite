@@ -119,14 +119,6 @@ export const ProjectDetail = () => {
                        {paragraph}
                      </p>
                    ))}
-                 <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-neutral-900 aspect-square rounded-sm overflow-hidden">
-                       <img src={project.image} className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-500" alt="Detail 1" />
-                    </div>
-                    <div className="bg-neutral-900 aspect-square rounded-sm overflow-hidden">
-                       <img src={project.image} className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-500" alt="Detail 2" />
-                    </div>
-                 </div>
               </div>
            </div>
         </div>
