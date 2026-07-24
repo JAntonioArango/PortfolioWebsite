@@ -46,7 +46,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link to="/" className="text-2xl font-bold tracking-tighter mix-blend-difference text-white z-50">
+            <Link to="/" className="text-2xl font-bold tracking-tighter mix-blend-normal text-neutral-500 dark:mix-blend-difference dark:text-white z-50">
               ANTONIO.DEV
             </Link>
           </motion.div>

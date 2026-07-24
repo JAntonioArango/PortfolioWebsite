@@ -38,7 +38,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-7xl md:text-[8.5rem] font-medium tracking-tighter leading-[0.85] mb-12 mix-blend-difference text-white"
+          className="text-7xl md:text-[8.5rem] font-medium tracking-tighter leading-[0.85] mb-12 mix-blend-normal text-neutral-500 dark:mix-blend-difference dark:text-white"
         >
           Build <br />
           <span className="italic font-serif text-neutral-500">Automate</span>
