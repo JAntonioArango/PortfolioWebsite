@@ -160,7 +160,7 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
       <DialogTrigger asChild>
         <button
           type="button"
-          className={`inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors ${className}`}
+          className={`inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer ${className}`}
         >
           {triggerLabel} <FileCodeIcon className="w-3 h-3" />
         </button>

@@ -46,16 +46,34 @@ export const ProjectDetail = () => {
              <span className="font-mono text-base text-neutral-600 dark:text-neutral-400 mb-2">{project.category} — {project.year}</span>
           </div>
 
-          <div className="aspect-[16/9] w-full bg-neutral-100 dark:bg-neutral-900 overflow-hidden rounded-sm">
-             <motion.img 
-               initial={{ scale: 1.1 }}
-               animate={{ scale: 1 }}
-               transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-               src={project.image} 
-               alt={project.title}
-               className="w-full h-full object-cover"
-             />
-          </div>
+          {project.website ? (
+            <a
+              href={project.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block aspect-[16/9] w-full bg-neutral-100 dark:bg-neutral-900 overflow-hidden rounded-sm cursor-pointer"
+            >
+              <motion.img
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            </a>
+          ) : (
+            <div className="aspect-[16/9] w-full bg-neutral-100 dark:bg-neutral-900 overflow-hidden rounded-sm">
+              <motion.img
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
         </motion.div>
 
         {/* Content */}

@@ -8,7 +8,7 @@ export const IconRibbon = () => {
   return (
     <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_10%,#000_90%,transparent)]">
       <motion.div
-        className="flex items-center gap-16 w-max"
+        className="flex items-center w-max"
         animate={{ x: ['0%', '-50%'] }}
         transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
       >
@@ -19,7 +19,7 @@ export const IconRibbon = () => {
             target="_blank"
             rel="noreferrer"
             title={icon.name}
-            className="flex-shrink-0"
+            className="flex-shrink-0 mr-16"
           >
             <img
               src={icon.url}
