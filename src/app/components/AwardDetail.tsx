@@ -26,10 +26,10 @@ export const AwardDetail = () => {
   }, []);
 
   return (
-    <div className="bg-neutral-950 min-h-screen text-white pt-24 px-6">
+    <div className="bg-white dark:bg-neutral-950 min-h-screen text-neutral-950 dark:text-white pt-24 px-6">
       <AmbientBackground />
       <div className="container mx-auto relative z-10">
-        <Link to="/" className="text-sm font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors mb-4 block">
+        <Link to="/" className="text-sm font-mono uppercase tracking-widest text-neutral-500 hover:text-neutral-950 dark:hover:text-white transition-colors mb-4 block">
           ← Back to Home
         </Link>
 
@@ -38,7 +38,7 @@ export const AwardDetail = () => {
           <button
             onClick={goPrev}
             aria-label="Previous award"
-            className="absolute left-0 md:-left-16 z-20 flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-neutral-400 hover:text-white hover:border-white/50 transition-colors"
+            className="absolute left-0 md:-left-16 z-20 flex items-center justify-center w-10 h-10 rounded-full border border-black/20 dark:border-white/20 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:border-black/50 dark:hover:border-white/50 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
@@ -61,7 +61,7 @@ export const AwardDetail = () => {
           <button
             onClick={goNext}
             aria-label="Next award"
-            className="absolute right-0 md:-right-16 z-20 flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-neutral-400 hover:text-white hover:border-white/50 transition-colors"
+            className="absolute right-0 md:-right-16 z-20 flex items-center justify-center w-10 h-10 rounded-full border border-black/20 dark:border-white/20 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:border-black/50 dark:hover:border-white/50 transition-colors"
           >
             <ArrowRight className="w-4 h-4" />
           </button>
@@ -81,10 +81,10 @@ export const AwardDetail = () => {
               onClick={() => setActiveIndex(i)}
               className={`group w-20 flex-shrink-0 text-left transition-opacity ${i === activeIndex ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
             >
-              <div className={`aspect-[3/4] overflow-hidden rounded-sm bg-neutral-900 mb-2 ${i === activeIndex ? 'ring-1 ring-white/60' : ''}`}>
+              <div className={`aspect-[3/4] overflow-hidden rounded-sm bg-neutral-100 dark:bg-neutral-900 mb-2 ${i === activeIndex ? 'ring-1 ring-black/60 dark:ring-white/60' : ''}`}>
                 <img src={award.image} alt={award.title} className="w-full h-full object-cover" />
               </div>
-              <p className="text-xs text-neutral-400 leading-tight truncate">{award.title}</p>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-tight truncate">{award.title}</p>
             </button>
           ))}
         </div>

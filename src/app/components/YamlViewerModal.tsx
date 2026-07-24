@@ -160,14 +160,14 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
       <DialogTrigger asChild>
         <button
           type="button"
-          className={`inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors ${className}`}
+          className={`inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors ${className}`}
         >
           {triggerLabel} <FileCodeIcon className="w-3 h-3" />
         </button>
       </DialogTrigger>
-      <DialogContent className="bg-neutral-950 border border-white/10 text-white max-w-[95vw] sm:max-w-[45vw] w-[calc(100%-2rem)] max-h-[92vh] flex flex-col p-0 gap-0 overflow-hidden rounded-lg">
-        <DialogHeader className="flex-row items-center justify-between gap-4 px-6 py-4 border-b border-white/10 space-y-0">
-          <DialogTitle className="text-sm font-mono uppercase tracking-widest text-neutral-300 flex items-center gap-2">
+      <DialogContent className="bg-white dark:bg-neutral-950 border border-black/10 dark:border-white/10 text-neutral-950 dark:text-white max-w-[95vw] sm:max-w-[45vw] w-[calc(100%-2rem)] max-h-[92vh] flex flex-col p-0 gap-0 overflow-hidden rounded-lg">
+        <DialogHeader className="flex-row items-center justify-between gap-4 px-6 py-4 border-b border-black/10 dark:border-white/10 space-y-0">
+          <DialogTitle className="text-sm font-mono uppercase tracking-widest text-neutral-700 dark:text-neutral-300 flex items-center gap-2">
             <FileCodeIcon className="w-4 h-4 text-neutral-500" />
             workflow_yaml_code.yaml
           </DialogTitle>
@@ -175,7 +175,7 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
             variant="ghost"
             size="icon"
             onClick={handleCopy}
-            className="text-neutral-400 hover:text-white hover:bg-white/10 mr-8"
+            className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10 mr-8"
             aria-label="Copy YAML to clipboard"
           >
             {copied ? (
@@ -196,9 +196,9 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
               <AccordionItem
                 key={section.title}
                 value={section.title}
-                className="border-white/10"
+                className="border-black/10 dark:border-white/10"
               >
-                <AccordionTrigger className="px-4 text-sm font-mono uppercase tracking-widest text-neutral-300 hover:no-underline hover:text-white">
+                <AccordionTrigger className="px-4 text-sm font-mono uppercase tracking-widest text-neutral-700 dark:text-neutral-300 hover:no-underline hover:text-neutral-950 dark:hover:text-white">
                   <span className="flex items-baseline gap-3">
                     {section.title}
                     <span className="text-xs font-normal tracking-normal text-neutral-600 normal-case">
@@ -210,11 +210,11 @@ export const YamlViewerModal: React.FC<YamlViewerModalProps> = ({
                   <pre className="font-mono text-sm leading-relaxed overflow-x-auto px-4">
                     <code>
                       {section.lines.map((line, idx) => (
-                        <div key={idx} className="flex hover:bg-white/[0.03]">
-                          <span className="select-none text-right pr-4 text-neutral-700 shrink-0 w-10">
+                        <div key={idx} className="flex hover:bg-black/[0.03] dark:hover:bg-white/[0.03]">
+                          <span className="select-none text-right pr-4 text-neutral-400 dark:text-neutral-700 shrink-0 w-10">
                             {section.startLine + idx}
                           </span>
-                          <div className="whitespace-pre flex-1 text-neutral-300">
+                          <div className="whitespace-pre flex-1 text-neutral-700 dark:text-neutral-300">
                             {renderHighlightedLine(line, idx)}
                           </div>
                         </div>

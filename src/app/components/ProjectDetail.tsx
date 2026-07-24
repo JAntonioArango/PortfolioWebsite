@@ -14,21 +14,21 @@ export const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-neutral-950 flex items-center justify-center text-white">
+      <div className="min-h-screen bg-white dark:bg-neutral-950 flex items-center justify-center text-neutral-950 dark:text-white">
         <AmbientBackground />
         <div className="text-center relative z-10">
           <h1 className="text-4xl mb-4">Project not found</h1>
-          <Link to="/work" className="text-neutral-500 hover:text-white underline">Back to Archive</Link>
+          <Link to="/work" className="text-neutral-500 hover:text-neutral-950 dark:hover:text-white underline">Back to Archive</Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-neutral-950 min-h-screen text-white pt-32 px-6">
+    <div className="bg-white dark:bg-neutral-950 min-h-screen text-neutral-950 dark:text-white pt-32 px-6">
       <AmbientBackground />
       <div className="container mx-auto relative z-10">
-        <Link to="/work" className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-500 hover:text-white transition-colors mb-12">
+        <Link to="/work" className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-500 hover:text-neutral-950 dark:hover:text-white transition-colors mb-12">
           <ArrowLeft className="w-4 h-4" /> Back to Archive
         </Link>
 
@@ -43,10 +43,10 @@ export const ProjectDetail = () => {
              <h1 className="text-6xl md:text-9xl font-medium tracking-tighter leading-[0.9]">
                {project.title}
              </h1>
-             <span className="font-mono text-base text-neutral-400 mb-2">{project.category} — {project.year}</span>
+             <span className="font-mono text-base text-neutral-600 dark:text-neutral-400 mb-2">{project.category} — {project.year}</span>
           </div>
 
-          <div className="aspect-[16/9] w-full bg-neutral-900 overflow-hidden rounded-sm">
+          <div className="aspect-[16/9] w-full bg-neutral-100 dark:bg-neutral-900 overflow-hidden rounded-sm">
              <motion.img 
                initial={{ scale: 1.1 }}
                animate={{ scale: 1 }}
@@ -74,7 +74,7 @@ export const ProjectDetail = () => {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors"
                     >
                       View on GitHub <ArrowUpRight className="w-3 h-3" />
                     </a>
@@ -84,7 +84,7 @@ export const ProjectDetail = () => {
                       href={project.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors"
                     >
                       Visit Site <ArrowUpRight className="w-3 h-3" />
                     </a>
@@ -94,7 +94,7 @@ export const ProjectDetail = () => {
                       href={project.diagramImage}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors"
                     >
                       View Workflow Diagram <ArrowUpRight className="w-3 h-3" />
                     </a>
@@ -107,11 +107,11 @@ export const ProjectDetail = () => {
            </div>
 
            <div>
-              <p className="text-2xl md:text-4xl font-light leading-relaxed text-neutral-300">
+              <p className="text-2xl md:text-4xl font-light leading-relaxed text-neutral-700 dark:text-neutral-300">
                 {project.description}
               </p>
-              
-              <div className="mt-16 pt-16 border-t border-white/10">
+
+              <div className="mt-16 pt-16 border-t border-black/10 dark:border-white/10">
                  {(project.details ?? "Additional project context would go here. We focused on delivering a solution that not only looked beautiful but performed exceptionally well. The design system was built to be scalable and modular.")
                    .split("\n\n")
                    .map((paragraph, index) => (
@@ -124,7 +124,7 @@ export const ProjectDetail = () => {
         </div>
         
         {/* Next Project (Simple Link) */}
-        <div className="border-t border-white/10 py-24 text-center">
+        <div className="border-t border-black/10 dark:border-white/10 py-24 text-center">
            <Link to="/work" className="group inline-flex flex-col items-center gap-4">
               <span className="text-sm font-mono uppercase tracking-widest text-neutral-500">Next Project</span>
               <span className="text-6xl md:text-8xl font-medium tracking-tighter group-hover:text-neutral-400 transition-colors">

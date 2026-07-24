@@ -60,6 +60,8 @@
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
+  --input-background: oklch(0.269 0 0);
+  --switch-background: oklch(0.439 0 0);
   --ring: oklch(0.439 0 0);
   --font-weight-medium: 500;
   --font-weight-normal: 400;
@@ -192,15 +194,21 @@ html {
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: oklch(0.269 0 0) transparent;
+  scrollbar-color: oklch(0.708 0 0) transparent;
 }
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: oklch(0.269 0 0);
+  background-color: oklch(0.708 0 0);
   border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
+}
+.dark .custom-scrollbar {
+  scrollbar-color: oklch(0.269 0 0) transparent;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: oklch(0.269 0 0);
 }

@@ -9,7 +9,18 @@
       <meta name="description" content="This web application offers an immersive user experience with a visually stunning interface, allowing users to easily navigate and submit forms seamlessly." />
       <meta name="robots" content="noindex, nofollow" />
       <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-      
+      <script>
+        (function () {
+          try {
+            var stored = localStorage.getItem('portfolio-theme');
+            if (stored === 'light') return;
+            document.documentElement.classList.add('dark');
+          } catch (e) {
+            document.documentElement.classList.add('dark');
+          }
+        })();
+      </script>
+
     </head>
 
     <body>

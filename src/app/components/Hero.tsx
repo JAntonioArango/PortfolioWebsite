@@ -10,7 +10,7 @@ export const Hero = () => {
   const opacityText = useTransform(scrollY, [0, 300], [1, 0]);
   
   return (
-    <section ref={containerRef} className="relative h-screen flex items-center justify-center overflow-hidden px-6 bg-neutral-950">
+    <section ref={containerRef} className="relative h-screen flex items-center justify-center overflow-hidden px-6 bg-white dark:bg-neutral-950">
       
       <AmbientBackground fixed={false} />
 
@@ -25,7 +25,7 @@ export const Hero = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-mono tracking-widest uppercase text-neutral-400">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 backdrop-blur-md text-sm font-mono tracking-widest uppercase text-neutral-600 dark:text-neutral-400">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -48,13 +48,13 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row items-center gap-6 md:gap-16 text-lg font-light text-neutral-400 max-w-4xl mx-auto"
+          className="flex flex-col md:flex-row items-center gap-6 md:gap-16 text-lg font-light text-neutral-600 dark:text-neutral-400 max-w-4xl mx-auto"
         >
           <p className="md:text-right flex-1 leading-relaxed">
             Java Backend Developer specialized in<br />
             Spring Boot, microservices, and clean architecture.
           </p>
-          <div className="w-px h-16 bg-white/10 hidden md:block" />
+          <div className="w-px h-16 bg-black/10 dark:bg-white/10 hidden md:block" />
           <p className="md:text-left flex-1 leading-relaxed">
             Based in Medellín, Colombia,<br />
             working globally.
@@ -69,11 +69,11 @@ export const Hero = () => {
         transition={{ delay: 1.2, duration: 1 }}
         className="absolute bottom-12 flex flex-col items-center gap-4"
       >
-        <div className="w-[1px] h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent overflow-hidden">
-          <motion.div 
+        <div className="w-[1px] h-24 bg-gradient-to-b from-transparent via-black/20 dark:via-white/20 to-transparent overflow-hidden">
+          <motion.div
             animate={{ y: [-100, 100] }}
             transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-            className="w-full h-1/2 bg-gradient-to-b from-transparent via-white to-transparent"
+            className="w-full h-1/2 bg-gradient-to-b from-transparent via-neutral-950 dark:via-white to-transparent"
           />
         </div>
       </motion.div>

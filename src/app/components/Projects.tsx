@@ -9,7 +9,7 @@ export const Projects = () => {
   const featuredProjects = projects.slice(0, 4);
 
   return (
-    <section id="work" className="py-32 px-6 bg-neutral-950">
+    <section id="work" className="py-32 px-6 bg-white dark:bg-neutral-950">
       <div className="container mx-auto">
         
         {/* Section Header */}
@@ -22,10 +22,10 @@ export const Projects = () => {
           <div>
             <div className="flex items-center gap-6 mb-8">
               <div className="flex items-baseline gap-3">
-                <span className="font-serif italic text-lg text-white">02</span>
-                <span className="text-sm font-mono uppercase tracking-[0.3em] text-neutral-400">Selected Work</span>
+                <span className="font-serif italic text-lg text-neutral-950 dark:text-white">02</span>
+                <span className="text-sm font-mono uppercase tracking-[0.3em] text-neutral-600 dark:text-neutral-400">Selected Work</span>
               </div>
-              <div className="h-px w-32 bg-gradient-to-r from-white/30 to-transparent" />
+              <div className="h-px w-32 bg-gradient-to-r from-black/30 dark:from-white/30 to-transparent" />
             </div>
             <h2 className="text-5xl md:text-8xl font-medium tracking-tighter leading-[0.9]">
               Curated <br />
@@ -33,7 +33,7 @@ export const Projects = () => {
             </h2>
           </div>
           <div className="hidden md:block mb-2">
-             <Link to="/work" className="text-sm font-mono uppercase tracking-widest border-b border-white/30 pb-2 hover:text-neutral-300 transition-colors inline-block">
+             <Link to="/work" className="text-sm font-mono uppercase tracking-widest border-b border-black/30 dark:border-white/30 pb-2 hover:text-neutral-500 dark:hover:text-neutral-300 transition-colors inline-block">
                View All Projects
              </Link>
           </div>
@@ -66,25 +66,25 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
       className={`group cursor-pointer ${!isEven ? 'md:mt-32' : ''}`}
     >
       <Link to={`/work/${project.slug}`}>
-        <div className="relative overflow-hidden rounded-sm aspect-[4/3] mb-8 bg-neutral-900">
-          <motion.img 
+        <div className="relative overflow-hidden rounded-sm aspect-[4/3] mb-8 bg-neutral-100 dark:bg-neutral-900">
+          <motion.img
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
-            src={project.image} 
+            src={project.image}
             alt={project.title}
             className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
           />
           {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
-            <div className="bg-white/10 backdrop-blur-md p-5 rounded-full border border-white/10 scale-0 group-hover:scale-100 transition-transform duration-500 ease-[0.16,1,0.3,1]">
-              <ArrowUpRight className="w-6 h-6 text-white" />
+          <div className="absolute inset-0 bg-white/20 dark:bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
+            <div className="bg-black/10 dark:bg-white/10 backdrop-blur-md p-5 rounded-full border border-black/10 dark:border-white/10 scale-0 group-hover:scale-100 transition-transform duration-500 ease-[0.16,1,0.3,1]">
+              <ArrowUpRight className="w-6 h-6 text-neutral-950 dark:text-white" />
             </div>
           </div>
         </div>
-        
-        <div className="flex justify-between items-end border-t border-white/10 pt-6">
+
+        <div className="flex justify-between items-end border-t border-black/10 dark:border-white/10 pt-6">
           <div>
-            <h3 className="text-3xl font-medium tracking-tight mb-2 group-hover:text-neutral-400 transition-colors">{project.title}</h3>
+            <h3 className="text-3xl font-medium tracking-tight mb-2 group-hover:text-neutral-500 dark:group-hover:text-neutral-400 transition-colors">{project.title}</h3>
             <p className="font-mono text-sm uppercase tracking-widest text-neutral-500">{project.category}</p>
           </div>
           <span className="font-mono text-sm text-neutral-600">{project.year}</span>

@@ -89,8 +89,7 @@ export const projects: Project[] = [
     role: "Backend Developer",
     description: "Spring Boot REST API inventory management system with full CRUD operations, MySQL persistence, and automated test coverage via JaCoCo.",
     details: "StoreInventorySystem is a straightforward Spring Boot REST API for managing product inventory, built with a clean controller-service-repository layering on top of Spring Data JPA and MySQL. It exposes endpoints to list, create, and update products, with Bean Validation enforcing required fields and non-negative price/quantity, and returns proper HTTP status codes (201 on creation, 404 when a product ID isn't found).\n\nThe project emphasizes test coverage and code quality — JUnit 5, Mockito, and MockMvc drive controller and service tests, Testcontainers backs integration testing against a real MySQL instance, and JaCoCo/SpotBugs enforce coverage and static analysis during the Maven build. It was built iteratively with AI assistance, deliberately kept simple after an initial overengineered attempt was discarded in favor of a leaner, incrementally-prompted design.",
-    github: "https://github.com/JAntonioArango/StoreInventorySystem",
-    website: "#"
+    github: "https://github.com/JAntonioArango/StoreInventorySystem"
   },
   {
     id: "riot-api-microservice",
@@ -103,7 +102,6 @@ export const projects: Project[] = [
     role: "Backend Developer",
     description: "Reactive Spring Boot microservice consuming external APIs with Redis caching to reduce response latency and external API calls. Built with Spring WebFlux, Docker, Swagger/OpenAPI, and Spring Boot Actuator.",
     details: "A Spring Boot microservice that proxies the Riot Games API to fetch League of Legends summoner and ranked data, wrapping outbound calls in a reactive WebClient and enforcing Riot's rate limits with a Bucket4j token bucket (dual limits — per-second and per-two-minutes). Responses are cached in Redis via Spring Cache/Spring Session to reduce redundant upstream calls, with a configurable TTL, and DTOs (SummonerDto, RankDto) are documented with OpenAPI schema annotations for Swagger UI.\n\nThe service exposes health, metrics, and Prometheus endpoints through Spring Actuator for observability, and reactive error handling logs and propagates upstream failures rather than swallowing them. Testcontainers is wired in for integration testing against real infrastructure, keeping the service consistent with the rest of the portfolio's containerized testing approach.",
-    github: "https://github.com/JAntonioArango/RiotApiService",
-    website: "#"
+    github: "https://github.com/JAntonioArango/RiotApiService"
   }
 ];
