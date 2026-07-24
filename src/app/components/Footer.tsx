@@ -80,7 +80,7 @@ export const Footer = () => {
 
           <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-black/5 dark:border-white/5 gap-6">
             <p className="font-mono text-sm uppercase tracking-widest text-neutral-600">
-              © 2025 ANTONIO.DEV
+              © 2026 ANTONIO.DEV
             </p>
           </div>
         </div>
